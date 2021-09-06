@@ -24,7 +24,7 @@ public class FileService {
         File file = fileRepository.findById(id).get();
 
         FileDto fileDto = FileDto.builder()
-                .id(file.getId())
+                .id(id)
                 .origFilename(file.getOrigFilename())
                 .filename(file.getFilename())
                 .filePath(file.getFilePath())

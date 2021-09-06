@@ -1,6 +1,8 @@
 package com.example.practice2.controller;
 
+import com.example.practice2.domain.entity.File;
 import com.example.practice2.dto.BoardDto;
+import com.example.practice2.dto.FileDto;
 import com.example.practice2.service.BoardService;
 import com.example.practice2.service.FileService;
 import com.example.practice2.util.MD5Generator;
@@ -34,12 +36,7 @@ public class BoardController {
     }
 
     @PostMapping("/post")
-    public String write(@RequestParam("file") MultipartFile files, BoardDto boardDto) {
-        try{
-            String origFilename = files.getOriginalFilename();
-            String filename = new MD5Generator(origFilename).toString();
-            String savePath = System.getProperty("user.dir") + "\\files";
-        }
+    public String write(BoardDto boardDto) {
         boardService.savePost(boardDto);
         return "redirect:/";
     }
@@ -59,9 +56,9 @@ public class BoardController {
     }
 
    @PutMapping("/post/edit/{id}")
-    public String update(BoardDto boardDto) {
+    public String update(@PathVariable("id") Long id, BoardDto boardDto) {
         boardService.savePost(boardDto);
-        return "redirect:/";
+        return "redirect:/post/" + id;
    }
 
    @DeleteMapping("/post/{id}")
